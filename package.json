@@ -12,7 +12,7 @@
     "injection"
   ],
   "scripts": {
-    "test": "moca"
+    "test": "node_modules/.bin/mocha test/*.spec.js"
   },
   "dependencies": {
     "get-parameter-names": "^0.3.0"
@@ -32,5 +32,11 @@
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
     }
-  ]
+  ],
+  "devDependencies": {
+    "mocha": "^3.1.0",
+    "q": "^1.4.1",
+    "sinon": "^1.17.6",
+    "uuid": "^2.0.3"
+  }
 }
