@@ -1,0 +1,36 @@
+{
+  "name": "moduli",
+  "version": "1.0.0",
+  "description": "IoC container for Node JS",
+  "main": "index.js",
+  "keywords": [
+    "moduli",
+    "ioc",
+    "dependency injection",
+    "di",
+    "module injection",
+    "injection"
+  ],
+  "scripts": {
+    "test": "moca"
+  },
+  "dependencies": {
+    "get-parameter-names": "^0.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amir-yahalom/moduli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amir-yahalom/moduli/issues"
+  },
+  "homepage": "https://github.com/amir-yahalom/moduli#readme",
+  "author": "Amir Yahalom <amir.ayd@gmail.com>",
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ]
+}
