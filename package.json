@@ -7,15 +7,17 @@
     "moduli",
     "ioc",
     "dependency injection",
-    "di",
     "module injection",
-    "injection"
+    "injection",
+    "dependency",
+    "di"
   ],
   "scripts": {
     "test": "node_modules/.bin/mocha test/*.spec.js"
   },
   "dependencies": {
-    "get-parameter-names": "^0.3.0"
+    "get-parameter-names": "^0.3.0",
+    "underscore": "^1.8.3"
   },
   "repository": {
     "type": "git",
