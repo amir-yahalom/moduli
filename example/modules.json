@@ -1,0 +1,39 @@
+{
+  "mode": "tolerant",
+  "modules": {
+    "app": {
+      "module": "/app",
+      "type": "object",
+      "injections": {
+        "authService": "authService",
+        "userService": "userService"
+      }
+    },
+    "db": {
+      "module": "/db",
+      "type": "object",
+      "postConstructor": "init"
+    },
+    "utils": {
+      "module": "/utils",
+      "type": "object"
+    },
+    "userService": {
+      "module": "/service/user",
+      "type": "class"
+    },
+    "authService": {
+      "module": "/service/auth",
+      "type": "class",
+      "initiate": "singleton",
+      "injections": {
+        "utils": "utils"
+      }
+    },
+    "User": {
+      "module": "/entity/User",
+      "type": "class",
+      "initiate": "multiple"
+    }
+  }
+}
