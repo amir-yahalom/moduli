@@ -1,3 +1,4 @@
+var moduli = require('../../index');
 var count = 0;
 
 function UserService($db) {
@@ -16,6 +17,11 @@ UserService.prototype.getUser = function (email) {
 
 UserService.prototype.getCount = function () {
     return count;
+};
+
+// creating objects on the fly
+UserService.prototype.createUserEntity = function (data) {
+    return moduli.get("User", [data.email, data.password, data.name]);
 };
 
 module.exports = UserService;

@@ -2,6 +2,7 @@ describe("#moduli - integration test", function () {
     var assert = require('assert'),
         sinon = require('sinon'),
         moduli = require('../index'),
+        moduliConfig = require('../lib/config'),
         baseDir = __dirname,
         $app;
 
@@ -25,18 +26,15 @@ describe("#moduli - integration test", function () {
     it("should initialize once singleton class", function (done) {
         var authService = moduli.get("authService");
         moduli.get("authService");
-        moduli.get("authService");
         assert.equal(authService.getCount(), 1);
         assert.ok(moduli.get("authService") === $app.authService);
         done();
     });
 
-    it("should initialize multiple times 'multiple' class", function (done) {
-        var user = moduli.get("User", ["a@a.com", "AaAaAa", "Aa"]);
-        var initialCount = user.getCount();
-        moduli.get("User");
-        moduli.get("User");
-        assert.equal(user.getCount(), initialCount + 2);
+    it("should initialize modules on the fly (from within app component)", function (done) {
+        var userService = moduli.get("userService");
+        var user = userService.createUserEntity({email: "b@b.com", password: "BbBbBb", name: "Bb"});
+        assert.equal(user.getFormattedName(), "Bb <b@b.com>");
         done();
     });
 

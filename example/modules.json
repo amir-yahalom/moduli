@@ -15,8 +15,7 @@
       "postConstructor": "init"
     },
     "utils": {
-      "module": "/utils",
-      "type": "object"
+      "module": "/utils"
     },
     "userService": {
       "module": "/service/user",
