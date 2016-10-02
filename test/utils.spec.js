@@ -38,6 +38,21 @@ describe("#moduli - utils.js", function () {
         });
     });
 
+    describe("getInjectedName()", function () {
+        it("should return name without '$'", function (done) {
+            var name = utils.getInjectedName("$xxx");
+            assert.equal(name, "xxx");
+            done();
+        });
+        it("should return name of injected param", function (done) {
+            var name = utils.getInjectedName("xxx", {injections: {xxx: "bbb"}});
+            assert.equal(name, "bbb");
+            name = utils.getInjectedName("xxx", {injections: {}});
+            assert.ok(!name);
+            done();
+        });
+    });
+
     function DummyClass() {
         this.args = Array.prototype.slice.call(arguments);
     }
