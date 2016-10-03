@@ -16,7 +16,8 @@ First, install via npm:
 
 - [npm](http://www.npmjs.com/): `npm install moduli --save`
 
-simple example:
+You can find an example in this repo under example/<br>
+Besides configurations, this is the only code you will need to run your app:<br>
 ```js
   var moduli = require('moduli');
   // initialize moduli with configuration file (or object..)
@@ -90,3 +91,49 @@ Note that:
 * all modules names should be defined in the configuration object. 
 * specific configurations can be defined inline.
 * inline config will override json/object config.
+
+
+Dependency Injection
+-------
+Lets look at the following exmaple (can be found in this repo codeline):<br>
+<b>Project structure</b><br>
+ ```
+/example/
+	entity/
+		User.js (User - class, multiple)
+	service/
+		auth.js (AuthService - class, singleton)
+		user.js (UserService - class, singleton)
+	app.js (object)
+	db.js (object)
+	utils.js (object)
+	main.js
+	modules.json
+ ```
+for example, AuthService depeneds on: db, utils and UserService instance.<br>
+with moduli it can be achived by simply declaring those modules as injections for AuthService:<br>
+ ```js
+function AuthService(secret, mydb, utils, userService) {
+    // ...
+}
+
+// ....
+module.exports = AuthService;
+// NOTE that this can be written in the config json:
+module.export["@moduli"] = {
+ 	injections: {
+ 		"mydb": "db",
+ 		"utils": "utils",
+ 		"userService": "userService"
+ 	}
+};
+ ```
+it can be achived also be using '$' before arg name (the arg name without the '$' must match the desired module name):
+ ```js
+function AuthService(secret, $db, $utils, $userService) {
+    // ...
+}
+
+// ....
+module.exports = AuthService;
+ ```
