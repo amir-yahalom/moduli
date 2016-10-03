@@ -39,9 +39,10 @@ modules config has the following structure
       "initiate": "string", // optional - "singleton" (default) | "multiple" - if multiple, each time moduli.get() is called - a new instance will be created. relevant only for 'class'
       "injections": { // optional - injections can be defined by adding '$' before param name 
         "ARG_NAME": "MODULE_NAME"
-        // ... other injections
+        // other injections..
       }
     }
+    // other modules...
   }
 }
  ```
@@ -59,12 +60,12 @@ modules config has the following structure
  * <b>json file</b> <br>
  modules.json:<br>
  ```js
-{
-  "mode": ".."
-  "modules": {
-    // ...
+  {
+    "mode": ".."
+    "modules": {
+      // ...
+    }
   }
-}
  ```
  main.js:<br>
  ```js
@@ -76,13 +77,13 @@ moduli.initInjector(__dirname, "/modules.json");
  
  * <b>js object</b> <br>
  ```js
-var config = {
-  "mode": ".."
-  "modules": {
-    // ...
+  var config = {
+    "mode": ".."
+    "modules": {
+      // ...
+    }
   }
-}
-moduli.initInjector(__dirname, config);
+  moduli.initInjector(__dirname, config);
  ```
 
 Note that: 
