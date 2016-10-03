@@ -47,34 +47,42 @@ modules config has the following structure
  ```
 
 <b>moduli</b> supports several types of configurations: 
- * inline <br>
+ * <b>inline</b> <br>
  ```js
-   // your module
-   // ... 
-   module.export["@moduli"] = {
-    // configurations..
-   };
+ // your module
+ // ... 
+ module.export["@moduli"] = {
+  // configurations..
+ };
  ```
  
- * json file <br>
+ * <b>json file</b> <br>
+ modules.json:<br>
  ```js
-   {
-    "mode": ".."
-    "modules": {
-      // ...
-    }
-   }
+{
+  "mode": ".."
+  "modules": {
+    // ...
+  }
+}
+ ```
+ main.js:<br>
+ ```js
+var moduli = require('moduli');
+// initialize moduli with configuration file (or object..)
+moduli.initInjector(__dirname, "/modules.json");
+//....
  ```
  
- * js object <br>
+ * <b>js object</b> <br>
  ```js
-   var config = {
-    "mode": ".."
-    "modules": {
-      // ...
-    }
-   }
-   moduli.initInjector(__dirname, config);
+var config = {
+  "mode": ".."
+  "modules": {
+    // ...
+  }
+}
+moduli.initInjector(__dirname, config);
  ```
 
 Note that: 
