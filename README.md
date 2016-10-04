@@ -47,8 +47,15 @@ modules config has the following structure
   }
 }
  ```
+<h3>moduli.initInjector(projectBasePath, modulesConfig)</h3>
+This method should be called before any other call to moduli.<br>
+It will reset moduli config, according to the given input:
+<ul>
+<li><strong>projectBasePath</strong> : string - is the absolute path of the project (if called from project root -> <b>__dirname</b>)</li>
+<li><strong>modulesConfig</strong> : object || string - is configurations from moduli (string if you want to load configurations from json file)</li>
+</ul>
 
-<b>moduli</b> supports several types of configurations: 
+There are several types of configurations: 
  * <b>inline</b> <br>
  ```js
  // your module
@@ -95,22 +102,7 @@ Note that:
 
 Dependency Injection
 -------
-Lets look at the following exmaple (can be found in this repo codeline):<br>
-<b>Project structure</b><br>
- ```
-/example/
-	entity/
-		User.js (User - class, multiple)
-	service/
-		auth.js (AuthService - class, singleton)
-		user.js (UserService - class, singleton)
-	app.js (object)
-	db.js (object)
-	utils.js (object)
-	main.js
-	modules.json
- ```
-for example, AuthService depeneds on: db, utils and UserService instance.<br>
+Lets look at the following exmaple, AuthService depeneds on: db, utils and UserService instance.<br>
 with moduli it can be achived by simply declaring those modules as injections for AuthService:<br>
  ```js
 function AuthService(secret, mydb, utils, userService) {
@@ -137,3 +129,54 @@ function AuthService(secret, $db, $utils, $userService) {
 // ....
 module.exports = AuthService;
  ```
+
+
+API
+-------
+<h3>moduli.get(sName, aArgs)</h3>
+Returns the desired module (will be initiated on demand)<br>
+<ul>
+<li><strong>sName</strong> : string - is the name of the desired module (as defined in the modules configurations)</li>
+<li><strong>aArgs</strong> : Array - (optional) is array of the arguments for the constructor / init function</li>
+</ul>
+example:<br>
+ ```js
+ // db module - object, reference to the db
+var db = moduli.get("db");
+db.findOne(query).then(function (result) {
+	// User module - class (multiple) 
+	var user = moduli.get("User", [result.email, result.password]);
+	...
+});
+ ```
+
+<h3>moduli.init(sName, aArgs)</h3>
+Initialize the given module. It does hard init, even if the module is an object or singleton class<br>
+<ul>
+<li><strong>sName</strong> : string - is the name of the desired module (as defined in the modules configurations)</li>
+<li><strong>aArgs</strong> : Array - (optional) is array of the arguments for the constructor / init function</li>
+</ul>
+example:<br>
+ ```js
+var db = moduli.init("db", ["my-dummy-connection-string");
+ ```
+ 
+<h3>moduli.set(sName, oInstance, oModuleData)</h3>
+Set module instnace and metadata. Useful for tests, where you want to inject your mock object.<br>
+<ul>
+<li><strong>sName</strong> : string - is the name of the desired module (as defined in the modules configurations)</li>
+<li><strong>oInstance</strong> : Object - is the desired instance, note that it should be instantiated already</li>
+<li><strong>oModuleData</strong> : Object - (optional) is the configuration for the specified module</li>
+</ul>
+example:<br>
+ ```js
+moduli.set("myModule", {a: "b", c: "d"}, {type: "object"});
+ ```
+ 
+<h3>moduli.initInjector(projectBasePath, modulesConfig)</h3>
+This method should be called before any other call to moduli.<br>
+It will reset moduli config, according to the given input:
+<ul>
+<li><strong>projectBasePath</strong> : string - is the absolute path of the project (if called from project root -> <b>__dirname</b>)</li>
+<li><strong>modulesConfig</strong> : object || string - is configurations from moduli (string if you want to load configurations from json file)</li>
+</ul>
