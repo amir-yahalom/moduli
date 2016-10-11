@@ -1,5 +1,24 @@
 {
   "mode": "tolerant",
+  "groups": {
+    "entities": {
+      "dir": "/entity",
+      "ignore": ["IgnoredModule.js"],
+      "alias": {
+        "Dummy": "DummyModule"
+      },
+      "data": {
+        "type": "class",
+        "initiate": "multiple"
+      }
+    },
+    "missing-dir": {
+      "dir": "/dummy-dir",
+      "data": {
+        "type": "object"
+      }
+    }
+  },
   "modules": {
     "app": {
       "module": "/app",
@@ -28,11 +47,6 @@
       "injections": {
         "utils": "utils"
       }
-    },
-    "User": {
-      "module": "/entity/User",
-      "type": "class",
-      "initiate": "multiple"
     }
   }
 }

@@ -1,7 +1,10 @@
 describe("#moduli - utils.js", function () {
     var assert = require('assert'),
         sinon = require('sinon'),
-        utils = require('../lib/utils');
+        utils = require('../lib/utils'),
+        baseDir = __dirname;
+
+    baseDir = baseDir.substring(0, baseDir.length - "test".length) + "example";
 
     describe("createInstance()", function () {
         var moduleData = {},
@@ -50,6 +53,30 @@ describe("#moduli - utils.js", function () {
             name = utils.getInjectedName("xxx", {injections: {}});
             assert.ok(!name);
             done();
+        });
+    });
+
+    describe("getGroupModules()", function () {
+        var group = {
+            "dir": "/entity",
+            "ignore": ["IgnoredModule.js"],
+            "alias": {
+                "Dummy": "DummyModule"
+            },
+            "data": {
+                "type": "class",
+                "initiate": "multiple"
+            }
+        };
+        it("should return all modules in group", function (done) {
+            utils.getGroupModules(baseDir, group)
+                .then(function (modules) {
+                    assert.equal(Object.keys(modules).length, 3);
+                    assert.deepEqual(modules["User"], { module: '/entity/User', type: 'class', initiate: 'multiple' });
+                    assert.deepEqual(modules["DummyModule"], { module: '/entity/Dummy', type: 'class', initiate: 'multiple' });
+                    assert.deepEqual(modules["NestedModule"], { module: '/entity/nested/NestedModule', type: 'class', initiate: 'multiple' });
+                    done();
+                }).catch(done);
         });
     });
 

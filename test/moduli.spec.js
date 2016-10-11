@@ -11,6 +11,7 @@ describe("#moduli - moduli.js", function () {
         var moduleData = {},
             instance;
         it("should initiate moduli with configuration object", function (done) {
+            delete moduliConfig.groups;
             moduli.initInjector(baseDir, {
                 "mode": "dummy",
                 "modules": {
@@ -20,24 +21,33 @@ describe("#moduli - moduli.js", function () {
                         "postConstructor": "init"
                     }
                 }
-            });
-            assert.equal(moduliConfig.mode, "dummy");
-            assert.deepEqual(moduliConfig.modules, {
-                "db": {
-                    "module": "/db",
-                    "type": "object",
-                    "postConstructor": "init"
-                }
-            });
-            done();
+            }).then(function () {
+                assert.equal(moduliConfig.mode, "dummy");
+                assert.deepEqual(moduliConfig.modules, {
+                    "db": {
+                        "module": "/db",
+                        "type": "object",
+                        "postConstructor": "init"
+                    }
+                });
+                done();
+            }).catch(done);
         });
 
         it("should initiate moduli with configuration json file", function (done) {
             var config = require("../example/modules.json");
-            moduli.initInjector(baseDir, "/modules.json");
-            assert.equal(moduliConfig.mode, "tolerant");
-            assert.deepEqual(moduliConfig.modules, config.modules);
-            done();
+            moduli.initInjector(baseDir, "/modules.json")
+                .then(function () {
+                    assert.equal(moduliConfig.mode, "tolerant");
+                    assert.deepEqual(moduliConfig.modules, config.modules);
+                    // verify grouped modules were loaded
+                    assert.deepEqual(moduliConfig.modules.User, { module: '/entity/User', type: 'class', initiate: 'multiple' });
+                    // verify aliased module 
+                    assert.deepEqual(moduliConfig.modules.DummyModule, { module: '/entity/Dummy', type: 'class', initiate: 'multiple' });
+                    // verify nested module
+                    assert.deepEqual(moduliConfig.modules.NestedModule, { module: '/entity/nested/NestedModule', type: 'class', initiate: 'multiple' });
+                    done();
+                }).catch(done);
         });
     });
     

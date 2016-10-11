@@ -7,20 +7,19 @@ describe("#moduli - integration test", function () {
         $app;
 
     baseDir = baseDir.substring(0, baseDir.length - "test".length) + "example";
-    
-    moduli.initInjector(baseDir, "/modules.json");
 
-    // initialize base dependencies
-    moduli.init("db", ["dummy-connection-string"]);
-
-    // start application
-    $app = moduli.get("app");
-    
     it("should initialize the app as expected", function (done) {
-        assert.ok($app);
-        assert.ok($app.authService);
-        assert.ok($app.userService);
-        done();
+        moduli.initInjector(baseDir, "/modules.json")
+            .then(function () {
+                // initialize base dependencies
+                moduli.init("db", ["dummy-connection-string"]);
+                // start application
+                $app = moduli.get("app");
+                assert.ok($app);
+                assert.ok($app.authService);
+                assert.ok($app.userService);
+                done();
+            }).catch(done);
     });
 
     it("should initialize once singleton class", function (done) {

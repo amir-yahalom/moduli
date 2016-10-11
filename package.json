@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "get-parameter-names": "^0.3.0",
+    "q": "^1.4.1",
+    "async": "^2.0.1",
     "underscore": "^1.8.3"
   },
   "repository": {
@@ -37,7 +39,6 @@
   ],
   "devDependencies": {
     "mocha": "^3.1.0",
-    "q": "^1.4.1",
     "sinon": "^1.17.6",
     "uuid": "^2.0.3"
   }
