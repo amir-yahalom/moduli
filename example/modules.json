@@ -17,6 +17,12 @@
       "data": {
         "type": "object"
       }
+    },
+    "services": {
+      "data": {
+        "type": "class",
+        "initiate": "singleton"
+      }
     }
   },
   "modules": {
@@ -42,8 +48,7 @@
     },
     "authService": {
       "module": "/service/auth",
-      "type": "class",
-      "initiate": "singleton",
+      "extends": ["services"],
       "injections": {
         "utils": "utils"
       }
