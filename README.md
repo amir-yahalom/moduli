@@ -1,10 +1,13 @@
 # moduli
-IoC container for Node JS.<br>
-This library will manage your dependencies. It will let you concentrate on your app logic instead of requiring modules manually, taking care of instantiation/initialization and working hard to make your code testable.<br>
+As your Node.js project gets larger, you will face some dependency issues:<br>
+Where to initiate required modules/components, how to exports those modules in order to use them correctly or dealing with stubs within your tests.<br>
+In Java for example, you got frameworks like Spring for handling the issues mentioned above.<br>
+<p><strong>Moduli</strong> aims to tackle those issues:<br>
+This library will manage your dependencies. It will let you concentrate on your app logic instead of requiring modules manually, taking care of instantiation/initialization and working hard to make your code testable.</p>
 <p><b>How it works?</b><br>
 <ol>
 <li>you configure all the desired modules & injections (very easy...)</li>
-<li>moduli initializes & injects all the dependencies</li>
+<li>moduli initializes & injects all of your dependencies</li>
 <li>your app is ready to run!</li>
 </ol>
 </p>
