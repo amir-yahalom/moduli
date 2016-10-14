@@ -12,6 +12,23 @@ This library will manage your dependencies. It will let you concentrate on your 
 </ol>
 </p>
 
+Your project modules will look like this:<br>
+```js
+function MessageService($db, $utils, $logger, $userService) {
+    this.db = $db;
+    //...
+}
+
+MessageService.prototype.getAllMessages = function () {
+    return this.db.messages.find();  
+};
+
+// ...
+
+module.exports = MessageService;
+```
+As you can see it cleans your code - zero lines for require/resolve/initiate dependencies
+
 
 Usage
 -------
