@@ -53,7 +53,7 @@ Besides configurations, this is the only code you will need to run your app:<br>
 
 Configure Modules
 -------
-modules config has the following structure
+Project modules config has the following structure
  ```js
 {
   "mode": "string" // "strict" (default) | "tolerant" - if mode is strict, moduli will throw exceptions if you are trying to have a circular reference 
@@ -86,6 +86,10 @@ modules config has the following structure
   }
 }
  ```
+<h4>Groups</h4>
+ Group is a way to define multiple modules (which have similar configurations) in a single json property.<br>
+ By default, all group modules will inherit configurations from the group. In addition, every module can override or add configuration, using <b>inline config</b> (see below).
+ 
 <h3>moduli.initInjector(projectBasePath, modulesConfig) : promise</h3>
 This method should be called before any other call to moduli.<br>
 It will reset moduli config, according to the given input:
