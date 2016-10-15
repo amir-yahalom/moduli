@@ -41,9 +41,14 @@ Besides configurations, this is the only code you will need to run your app:<br>
 ```js
   var moduli = require('moduli');
   // initialize moduli with configuration file (or object..)
-  moduli.initInjector(__dirname, "/modules.json");
-  // trigger app initialization
-  moduli.init("app");
+  moduli.initInjector(__dirname, "/modules.json")
+    .then(function () {
+      // initialize base dependencies
+      moduli.init("db", ["dummy-connection-string"]);
+      //...
+      // trigger app initialization
+      moduli.init("app");
+    });
 ```
 
 Configure Modules
@@ -52,9 +57,23 @@ modules config has the following structure
  ```js
 {
   "mode": "string" // "strict" (default) | "tolerant" - if mode is strict, moduli will throw exceptions if you are trying to have a circular reference 
+  "groups": {
+    "GROUP_NAME": {
+      "dir": "string", // optional - dir of the desired group from the root of the project (your package.json)
+      "ignore": ["/IgnoredModule.js"], // optional - modules to ignore within current group
+      "alias": { // optional - modules renaming
+        "REAL_MODULE_NAME": "DESIRED_MODULE_NAME"
+      },
+      "data": { // REQUIRED - module configurations to apply on all group modules
+        "type": "class",
+        "initiate": "multiple"
+      }
+      // other groups
+    },  
+  },
   "modules": {
     "MODULE_NAME": {
-      "module": "string", // REQUIRED - path to the module from the root of the project (your package.json),
+      "module": "string", // REQUIRED - path to the module from the root of the project (your package.json)
       "type": "string", // optional - "object" (default) | "function" | "class"
       "postConstructor": "string", // optional - an init method to call after require & instantiation 
       "initiate": "string", // optional - "singleton" (default) | "multiple" - if multiple, each time moduli.get() is called - a new instance will be created. relevant only for 'class'
@@ -67,7 +86,7 @@ modules config has the following structure
   }
 }
  ```
-<h3>moduli.initInjector(projectBasePath, modulesConfig)</h3>
+<h3>moduli.initInjector(projectBasePath, modulesConfig) : promise</h3>
 This method should be called before any other call to moduli.<br>
 It will reset moduli config, according to the given input:
 <ul>
@@ -153,7 +172,7 @@ module.exports = AuthService;
 
 API
 -------
-<h3>moduli.get(sName, aArgs)</h3>
+<h3>moduli.get(sName, aArgs) : object</h3>
 Returns the desired module (will be initiated on demand)<br>
 <ul>
 <li><strong>sName</strong> : string - is the name of the desired module (as defined in the modules configurations)</li>
@@ -170,7 +189,7 @@ db.findOne(query).then(function (result) {
 });
  ```
 
-<h3>moduli.init(sName, aArgs)</h3>
+<h3>moduli.init(sName, aArgs) : void</h3>
 Initialize the given module. It does hard init, even if the module is an object or singleton class<br>
 <ul>
 <li><strong>sName</strong> : string - is the name of the desired module (as defined in the modules configurations)</li>
@@ -181,7 +200,7 @@ example:<br>
 var db = moduli.init("db", ["my-dummy-connection-string");
  ```
  
-<h3>moduli.set(sName, oInstance, oModuleData)</h3>
+<h3>moduli.set(sName, oInstance, oModuleData): void</h3>
 Set module instnace and metadata. Useful for tests, where you want to inject your mock object.<br>
 <ul>
 <li><strong>sName</strong> : string - is the name of the desired module (as defined in the modules configurations)</li>
@@ -193,7 +212,7 @@ example:<br>
 moduli.set("myModule", {a: "b", c: "d"}, {type: "object"});
  ```
  
-<h3>moduli.initInjector(projectBasePath, modulesConfig)</h3>
+<h3>moduli.initInjector(projectBasePath, modulesConfig) : promise</h3>
 This method should be called before any other call to moduli.<br>
 It will reset moduli config, according to the given input:
 <ul>
