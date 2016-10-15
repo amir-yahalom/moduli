@@ -1,6 +1,6 @@
 {
   "name": "moduli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "IoC container for Node JS",
   "main": "index.js",
   "keywords": [
