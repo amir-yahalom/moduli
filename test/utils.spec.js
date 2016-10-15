@@ -59,7 +59,7 @@ describe("#moduli - utils.js", function () {
     describe("getGroupModules()", function () {
         var group = {
             "dir": "/entity",
-            "ignore": ["IgnoredModule.js"],
+            "ignore": ["/IgnoredModule.js"],
             "alias": {
                 "Dummy": "DummyModule"
             },
