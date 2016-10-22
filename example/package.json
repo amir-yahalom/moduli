@@ -1,0 +1,24 @@
+{
+  "name": "moduli-example",
+  "version": "1.0.1",
+  "description": "exmaple for moduli",
+  "keywords": [],
+  "dependencies": {
+    "q": "^1.4.1",
+    "async": "^2.0.1",
+    "underscore": "^1.8.3",
+    "uuid": "^2.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amir-yahalom/moduli.git"
+  },
+  "author": "Amir Yahalom <amir.ayd@gmail.com>",
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ]
+}

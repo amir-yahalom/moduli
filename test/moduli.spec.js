@@ -12,6 +12,8 @@ describe("#moduli - moduli.js", function () {
             instance;
         it("should initiate moduli with configuration object", function (done) {
             delete moduliConfig.groups;
+            delete moduliConfig.npm;
+            delete moduliConfig.node;
             moduli.initInjector(baseDir, {
                 "mode": "dummy",
                 "modules": {
@@ -46,6 +48,10 @@ describe("#moduli - moduli.js", function () {
                     assert.deepEqual(moduliConfig.modules.DummyModule, { module: '/entity/Dummy', type: 'class', initiate: 'multiple' });
                     // verify nested module
                     assert.deepEqual(moduliConfig.modules.NestedModule, { module: '/entity/nested/NestedModule', type: 'class', initiate: 'multiple' });
+                    // verify npm module
+                    assert.deepEqual(moduliConfig.modules.async, { module: 'npm#async', src: 'npm' });
+                    // verify node core module
+                    assert.deepEqual(moduliConfig.modules.zlib, { module: 'node#zlib', src: 'node' });
                     done();
                 }).catch(done);
         });

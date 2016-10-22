@@ -25,6 +25,8 @@
       }
     }
   },
+  "npm": {},
+  "node": {},
   "modules": {
     "app": {
       "module": "/app",
@@ -40,7 +42,8 @@
       "postConstructor": "init"
     },
     "utils": {
-      "module": "/utils"
+      "module": "/utils",
+      "postConstructor": "init"
     },
     "userService": {
       "module": "/service/user",
@@ -48,10 +51,7 @@
     },
     "authService": {
       "module": "/service/auth",
-      "extends": ["services"],
-      "injections": {
-        "utils": "utils"
-      }
+      "extends": ["services"]
     }
   }
 }

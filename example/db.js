@@ -1,4 +1,4 @@
-var Q = require('q');
+var Q;
 
 var db = {
     users: {
@@ -38,7 +38,8 @@ module.exports = {
         
         return deferred.promise;
     },
-    init: function (connStr) {
+    init: function (connStr, $q) {
         this.connStr = connStr;
+        Q = $q;
     }
 };

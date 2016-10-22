@@ -60,16 +60,19 @@ Project modules config has the following structure
   "groups": {
     "GROUP_NAME": {
       "dir": "string", // optional - dir of the desired group from the root of the project (your package.json)
-      "ignore": ["/IgnoredModule.js"], // optional - modules to ignore within current group
+      "ignore": ["/IgnoredModule.js"], // optional - modules/directories to ignore within current group
+      "postfix": "string", // optional - postfix for all child modules
+      "prefix": "string", // optional - prefix for all child modules
       "alias": { // optional - modules renaming
         "REAL_MODULE_NAME": "DESIRED_MODULE_NAME"
       },
       "data": { // REQUIRED - module configurations to apply on all group modules
         "type": "class",
         "initiate": "multiple"
-      }
-      // other groups
-    },  
+      },
+      "extends": ["string"] // optional - array of groups to inherit from (only 'data' property)
+    }
+    // other groups 
   },
   "modules": {
     "MODULE_NAME": {
@@ -80,15 +83,49 @@ Project modules config has the following structure
       "injections": { // optional - injections can be defined by adding '$' before param name 
         "ARG_NAME": "MODULE_NAME"
         // other injections..
-      }
+      },
+      "extends": ["string"] // optional - array of groups to inherit from (only module config - 'data' property in group)
     }
     // other modules...
+  },
+  "npm": { // optional - use when you want moduli to resolve npm dependencies
+    "MODULE_NAME": {
+        // custom config for npm module
+    }
+  },
+  "node": { // optional - use when you want moduli to resolve node core modules
+      "MODULE_NAME": {
+          // custom config for npm module
+      }
   }
 }
  ```
 <h4>Groups</h4>
  Group is a way to define multiple modules (which have similar configurations) in a single json property.<br>
  By default, all group modules will inherit configurations from the group. In addition, every module can override or add configuration, using <b>inline config</b> (see below).
+
+<h4>Modules</h4>
+ Is a collection that holds all your project modules. Note that you can use Groups + inline module config instead of defining all your modules manually.
+
+<h4>npm/node modules</h4>
+ If you want moduli to resolve (inject, initiate...) npm/node modules (no require()), you need to define collection for each one.<br>
+ The collection can be empty - it means that modules will be loaded with base configuration.<br>
+ <strong>NOTE</strong> that if you don't specify npm/node property - npm/node modules won't be resolved by moduli.<br>
+ Lets say you don't have any special configurations for your npm dependencies, your config json will look like this:<br>
+  ```js
+ {
+   "groups": {
+     // groups...
+   },
+   "modules": {
+     // modules...
+   },
+   
+   // An empty object - all npm depenecies can be loaded from within moduli
+   "npm": {}
+ }
+  ```
+
  
 <h3>moduli.initInjector(projectBasePath, modulesConfig) : promise</h3>
 This method should be called before any other call to moduli.<br>

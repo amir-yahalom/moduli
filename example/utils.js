@@ -1,6 +1,9 @@
-var uuid = require('uuid');
+var uuid;
 
 module.exports = {
+    init: function ($uuid) {
+        uuid = $uuid;
+    },
     comparePassword: function (a, b) {
         return a === b;
     },
