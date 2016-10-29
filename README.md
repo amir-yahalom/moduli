@@ -47,19 +47,7 @@ Install via npm:
 <li><a href="https://github.com/amir-yahalom/moduli-express-example">moduli-express-example</a> - an express starter app built with moduli</li>
 <li>In this repo under example/ and in tests.</li>
 </ul>
-Besides configurations, this is the only code you will need to run your app:<br>
-```js
-  var moduli = require('moduli');
-  // initialize moduli with configuration file (or object..)
-  moduli.initInjector(__dirname, "/modules.json")
-    .then(function () {
-      // initialize base dependencies
-      moduli.init("db", ["dummy-connection-string"]);
-      //...
-      // trigger app initialization
-      moduli.init("app");
-    });
-```
+
 
 Configure Modules
 -------
@@ -144,6 +132,14 @@ It will reset moduli config, according to the given input:
 <li><strong>projectBasePath</strong> : string - is the absolute path of the project (if called from project root -> <b>__dirname</b>)</li>
 <li><strong>modulesConfig</strong> : object || string - is configurations from moduli (string if you want to load configurations from json file)</li>
 </ul>
+```js
+  var moduli = require('moduli');
+  // initialize moduli with configuration file (or object..)
+  moduli.initInjector(__dirname, "/modules.json")
+    .then(function () {
+      // ...
+    });
+```
 
 There are several types of configurations: 
  * <b>inline</b> <br>
