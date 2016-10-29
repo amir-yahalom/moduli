@@ -1,4 +1,6 @@
 # moduli
+
+<p><a href="https://nodei.co/npm/moduli/"><img src="https://nodei.co/npm/moduli.png"></a></p>
 As your Node.js project gets larger, you will face some dependency issues:<br>
 Where to initiate required modules/components, how to exports those modules in order to use them correctly or dealing with stubs within your tests.<br>
 In Java for example, you got frameworks like Spring for handling the issues mentioned above.<br>
@@ -8,7 +10,7 @@ This library will manage your dependencies. It will let you concentrate on your 
 <h4><a href="https://github.com/amir-yahalom/moduli-express-example">moduli-express-example</a> - an express starter app built with moduli</h4>
 </p>
 <br>
-<p><b>How it works?</b><br>
+<p><h4>How it works?</h4>
 <ol>
 <li>you configure all the desired modules & injections (very easy...)</li>
 <li>moduli initializes & injects all of your dependencies</li>
