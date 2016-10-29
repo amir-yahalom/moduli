@@ -4,6 +4,10 @@ Where to initiate required modules/components, how to exports those modules in o
 In Java for example, you got frameworks like Spring for handling the issues mentioned above.<br>
 <p><strong>Moduli</strong> aims to tackle those issues:<br>
 This library will manage your dependencies. It will let you concentrate on your app logic instead of requiring modules manually, taking care of instantiation/initialization and working hard to make your code testable.</p>
+<p>
+<h4><a href="https://github.com/amir-yahalom/moduli-express-example">moduli-express-example</a> - an express starter app built with moduli</h4>
+</p>
+<br>
 <p><b>How it works?</b><br>
 <ol>
 <li>you configure all the desired modules & injections (very easy...)</li>
@@ -32,11 +36,15 @@ As you can see it cleans your code - zero lines for require/resolve/initiate dep
 
 Usage
 -------
-First, install via npm:
+Install via npm:
 
 - [npm](http://www.npmjs.com/): `npm install moduli --save`
 
-You can find an example in this repo under example/<br>
+<strong>Code samples</strong> can be found at:
+<ul>
+<li><a href="https://github.com/amir-yahalom/moduli-express-example">moduli-express-example</a> - an express starter app built with moduli</li>
+<li>In this repo under example/ and in tests.</li>
+</ul>
 Besides configurations, this is the only code you will need to run your app:<br>
 ```js
   var moduli = require('moduli');
